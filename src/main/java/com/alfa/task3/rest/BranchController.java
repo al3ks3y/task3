@@ -21,7 +21,6 @@ public class BranchController {
 
     @GetMapping
     public BranchOutDto findClosest(@RequestParam("lat") String lat, @RequestParam("lon") String lon) {
-        System.out.println("Controller used");
         return branchService.findByCoords(lat, lon);
     }
 }
