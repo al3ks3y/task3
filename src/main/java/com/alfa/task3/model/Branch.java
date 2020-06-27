@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Table(name = "branches")
 public class Branch {
     @Id
     @JsonProperty("id")
