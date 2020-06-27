@@ -38,7 +38,7 @@ public class BranchService {
                 closestBranchIndex.set(b.getId());
             }
         });
-        System.out.println("result: " + result.get() + " closest: " + closestBranchIndex);
+        System.out.println("result: " + result.get() + " closest: " + closestBranchIndex.get());
         Branch closest = findById(closestBranchIndex.get());
         BranchOutDto dto = new BranchOutDto(closest.getId(), closest.getTitle(), closest.getLon(), closest.getLat(), closest.getAddress(), result.longValue());
         System.out.println(dto);
