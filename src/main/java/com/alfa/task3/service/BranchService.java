@@ -38,7 +38,7 @@ public class BranchService {
             }
             if (result.get() > distance) {
                 result.set((long) (distance * 1000));
-                System.out.println("id: " + b.getId());
+                System.out.println("id: " + b.getId() + " distance = " + distance);
                 closestBranchIndex.set(b.getId());
             }
         });
