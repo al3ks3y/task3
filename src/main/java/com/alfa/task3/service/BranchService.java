@@ -4,7 +4,6 @@ import com.alfa.task3.BranchOutDto;
 import com.alfa.task3.NotFoundException;
 import com.alfa.task3.dao.BranchRepostory;
 import com.alfa.task3.model.Branch;
-import org.graalvm.compiler.replacements.Log;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,7 +24,7 @@ public class BranchService {
     }
 
     public BranchOutDto findByCoords(String lat, String lon) {
-        Log.print(String.format("finding with coords %s, %s ", lat, lon));
+        System.out.println(String.format("finding with coords %s, %s ", lat, lon));
         final int R = 6371; // Радиус земли матушки
         List<Branch> branches = branchRepostory.findAll();
         Double lat1 = Double.parseDouble(lat);
