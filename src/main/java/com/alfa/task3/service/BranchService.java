@@ -7,6 +7,7 @@ import com.alfa.task3.model.Branch;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -30,8 +31,10 @@ public class BranchService {
         Double lon1 = Double.parseDouble(lon);
         final AtomicLong result = new AtomicLong(-1);
         AtomicLong closestBranchIndex = new AtomicLong();
+        List<Double> distances = new ArrayList<>();
         branches.forEach(b -> {
             Double distance = distance(b.getLat(), b.getLon(), lat1, lon1);
+            distances.add(distance);
             if (result.get() < 0) {
                 result.set((long) (distance * 1000));
                 System.out.println("id: " + b.getId() + " distance = " + distance * 1000);
@@ -44,10 +47,10 @@ public class BranchService {
             }
         });
         System.out.println("result: " + result.get() + " closest: " + closestBranchIndex.get());
-        System.out.println();
         Branch closest = findById(closestBranchIndex.get());
         BranchOutDto dto = new BranchOutDto(closest.getId(), closest.getTitle(), closest.getLon(), closest.getLat(), closest.getAddress(), result.longValue());
         System.out.println(dto);
+        System.out.println(distances);
         return dto;
     }
 
