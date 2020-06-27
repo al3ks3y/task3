@@ -1,7 +1,7 @@
-package com.alfa.task3;
+package com.alfa.task3.rest;
 
-import com.alfa.task3.dao.BranchRepostory;
 import com.alfa.task3.model.Branch;
+import com.alfa.task3.service.BranchService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("branches")
 public class BranchController {
-    private final BranchRepostory branchRepostory;
+    private final BranchService branchService;
 
-    public BranchController(BranchRepostory branchRepostory) {
-        this.branchRepostory = branchRepostory;
+    public BranchController(BranchService branchService) {
+        this.branchService = branchService;
     }
 
     @GetMapping("/{id}")
     public Branch findById(@PathVariable Long id) {
-        return branchRepostory.findById(id).orElseThrow(NotFoundException::new);
+        return branchService.findById(id);
     }
 }
