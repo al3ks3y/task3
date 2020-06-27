@@ -25,19 +25,13 @@ public class BranchService {
 
     public BranchOutDto findByCoords(String lat, String lon) {
         System.out.println(String.format("finding with coords %s, %s ", lat, lon));
-        final int R = 6371; // Радиус земли матушки
         List<Branch> branches = branchRepostory.findAll();
         Double lat1 = Double.parseDouble(lat);
         Double lon1 = Double.parseDouble(lon);
         final AtomicLong result = new AtomicLong(-1);
         AtomicLong closestBranchIndex = new AtomicLong();
         branches.forEach(b -> {
-            Double latDistance = toRad(lat1 - b.getLat());
-            Double lonDistance = toRad(lon1 - b.getLon());
-            Double coef = Math.pow(Math.sin(latDistance / 2), 2) + Math.cos(toRad(lat1)) * Math.cos(b.getLat()) *
-                    Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-            Double c = 2 * Math.atan2(Math.sqrt(coef), Math.sqrt(1 - coef));
-            Double distance = R * c;
+            Double distance = distance(b.getLat(), b.getLon(), lat1, lon1);
             if (result.get() < 0) result.set(distance.longValue());
             if (result.get() < distance) {
                 result.set(distance.intValue());
@@ -50,5 +44,26 @@ public class BranchService {
 
     private static Double toRad(Double value) {
         return value * Math.PI / 180;
+    }
+
+    private static final int EARTH_RADIUS = 6371; // Approx Earth radius in KM
+
+    public static double distance(double startLat, double startLong,
+                                  double endLat, double endLong) {
+
+        double dLat = Math.toRadians((endLat - startLat));
+        double dLong = Math.toRadians((endLong - startLong));
+
+        startLat = Math.toRadians(startLat);
+        endLat = Math.toRadians(endLat);
+
+        double a = haversin(dLat) + Math.cos(startLat) * Math.cos(endLat) * haversin(dLong);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return EARTH_RADIUS * c; // <-- d
+    }
+
+    public static double haversin(double val) {
+        return Math.pow(Math.sin(val / 2), 2);
     }
 }
