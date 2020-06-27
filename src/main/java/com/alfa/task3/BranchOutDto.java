@@ -1,8 +1,5 @@
 package com.alfa.task3;
 
-import lombok.Value;
-
-@Value
 public class BranchOutDto {
     private Long id;
 
