@@ -32,8 +32,11 @@ public class BranchService {
         AtomicLong closestBranchIndex = new AtomicLong();
         branches.forEach(b -> {
             Double distance = distance(b.getLat(), b.getLon(), lat1, lon1);
-            if (result.get() < 0) result.set((long) (distance * 1000));
-            if (result.get() < distance) {
+            if (result.get() < 0) {
+                result.set((long) (distance * 1000));
+                closestBranchIndex.set(b.getId());
+            }
+            if (result.get() > distance) {
                 result.set((long) (distance * 1000));
                 System.out.println("id: " + b.getId());
                 closestBranchIndex.set(b.getId());
