@@ -1,11 +1,9 @@
 package com.alfa.task3.rest;
 
+import com.alfa.task3.BranchOutDto;
 import com.alfa.task3.model.Branch;
 import com.alfa.task3.service.BranchService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("branches")
@@ -19,5 +17,10 @@ public class BranchController {
     @GetMapping("/{id}")
     public Branch findById(@PathVariable Long id) {
         return branchService.findById(id);
+    }
+
+    @GetMapping
+    public BranchOutDto findClosest(@RequestParam("lat") String lat, @RequestParam("lon") String lon) {
+        return branchService.findByCoords(lat, lon);
     }
 }

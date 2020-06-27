@@ -24,4 +24,24 @@ public class Branch {
     private Double lat;
 
     private String address;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Double getLon() {
+        return lon;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }
