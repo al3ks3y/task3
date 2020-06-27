@@ -14,7 +14,7 @@ import java.math.BigInteger;
 public class Branch {
     @Id
     @JsonProperty("id")
-    @Column(name = "id", columnDefinition = "NUMERIC(19,2)")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
 
