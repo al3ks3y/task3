@@ -36,12 +36,12 @@ public class BranchService {
             Double distance = distance(b.getLat(), b.getLon(), lat1, lon1);
             distances.add(distance);
             if (result.get() < 0) {
-                result.set((long) (distance * 1000));
+                result.set(Math.round(distance * 1000));
                 System.out.println("id: " + b.getId() + " distance = " + distance * 1000);
                 closestBranchIndex.set(b.getId());
             }
             if (result.get() > distance * 1000) {
-                result.set((long) (distance * 1000));
+                result.set(Math.round(distance * 1000));
                 System.out.println("id: " + b.getId() + " distance = " + distance * 1000);
                 closestBranchIndex.set(b.getId());
             }
