@@ -38,9 +38,11 @@ public class BranchService {
                 closestBranchIndex.set(b.getId());
             }
         });
+        System.out.println("result: " + result.get() + " closest: " + closestBranchIndex);
         Branch closest = findById(closestBranchIndex.get());
-        System.out.println("Distance is: " + result);
-        return new BranchOutDto(closest.getId(), closest.getTitle(), closest.getLon(), closest.getLat(), closest.getAddress(), result.longValue());
+        BranchOutDto dto = new BranchOutDto(closest.getId(), closest.getTitle(), closest.getLon(), closest.getLat(), closest.getAddress(), result.longValue());
+        System.out.println(dto);
+        return dto;
     }
 
     private static Double toRad(Double value) {
